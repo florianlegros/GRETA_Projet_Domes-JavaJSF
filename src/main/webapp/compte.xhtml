@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+	<title>Compte</title>
+	<link rel="stylesheet" type="text/css" href="../styles.css" />
+	<!-- CSS only -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+		crossorigin="anonymous" />
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
+	<!--JavaScriptBundlewithPopper-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
+
+</h:head>
+
+<h:body bgcolor="white" style="margin:0;">
+
+	<header
+		style="padding: 1% 1% 1% 1%; background-color: rgba(13, 179, 222, .2)">
+	<a href="index.xhtml"><img alt=""
+		src="https://cdn.discordapp.com/attachments/1039093292543000609/1039829661775044668/logo-png.png"
+		style="width: 5%; height: 5%" /></a>
+	<div class="d-flex flex-row justify-content-end p-1"
+		style="float: right; padding: 1% 1% 1% 1%;">
+		<h:form style="padding-top: 9%;">
+			<h:commandLink value="Deconnexion" action="#{loginBean.deconnect}" />
+		</h:form>
+		<a href="login.xhtml"><i class="bi bi-person-circle"
+			style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"></i></a><a
+			href="panier.xhtml" style="text-decoration: none;"><i
+			class="bi bi-cart4"
+			style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"><c:if
+					test="#{catalogueBrowserBean.cart.size()>0}">
+					<div
+						style="color: white; background-image: url('/JavaJSF/img/paw.svg'); font-size: x-small; border-radius: 50%; text-align: center; display: inline-block; padding: 9px 11px 2px 10px; right: 6.9%; font-weight: bold; position: absolute;">#{catalogueBrowserBean.cart.size()}</div>
+				</c:if></i></a><a href="#"><i class="bi bi-question-circle-fill"
+			style="color: #FF8B00; font-size: 3vw; margin-left: 2vw"></i></a>
+	</div>
+
+
+	</header>
+
+	<section class="h-100 h-custom" style="background-color: #eee;">
+	<h:form>
+		<div class="container py-5 h-100">
+			<div
+				class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col">
+					<div class="card">
+						<div class="card-body p-4">
+
+							<div
+								class="d-flex justify-content-between align-items-center mb-4">
+								<div>
+									<p class="mb-1">Commande recente</p>
+								</div>
+							</div>
+
+							<div class="card mb-3">
+								<div class="card-body">
+									<div class="d-flex justify-content-between">
+										<div class="d-flex flex-row align-items-center">
+											<div class="ms-3">
+												<h5>#{commandeBrowserBean.history[0].adresse}</h5>
+												<p class="small mb-0">#{commandeBrowserBean.history[0].date}</p>
+												<p class="small mb-0">#{commandeBrowserBean.history[0].status}</p>
+											</div>
+
+										</div>
+										<div class="d-flex " style="float: right; text-align: right;">
+											<div>
+												<h5>#{commandeBrowserBean.history[0].article.nom}</h5>
+												<h:outputText class="small mb-0"
+													value="#{commande.article.prix}">
+													<f:convertNumber type="currency" />
+												</h:outputText>
+											</div>
+
+											<img src="#{commandeBrowserBean.history[0].article.image}"
+												class="card-img-top"
+												style="height: 50px; margin-left: 10px;" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<a data-bs-toggle="collapse" href="#collapseExample"
+								aria-expanded="false" aria-controls="collapseExample"> show
+								all </a>
+							<div class="row collapse" id="collapseExample">
+
+								<div class="col-lg-7">
+
+									<div
+										class="d-flex justify-content-between align-items-center mb-4">
+										<div>
+											<p class="mb-1">Orders history</p>
+											<p class="mb-0">You made
+												#{commandeBrowserBean.history.size()} orders</p>
+										</div>
+									</div>
+
+									<c:forEach items="#{commandeBrowserBean.history}"
+										var="commande">
+
+										<div class="card mb-3">
+											<div class="card-body">
+												<div class="d-flex justify-content-between">
+													<div class="d-flex flex-row align-items-center">
+														<div class="ms-3">
+															<h5>#{commande.adresse}</h5>
+															<p class="small mb-0">#{commande.date}</p>
+															<p class="small mb-0">#{commande.status}</p>
+														</div>
+
+													</div>
+													<div class="d-flex "
+														style="float: right; text-align: right;">
+														<div>
+															<h5>#{commande.article.nom}</h5>
+															<h:outputText class="small mb-0"
+																value="#{commande.article.prix}">
+																<f:convertNumber type="currency" />
+															</h:outputText>
+														</div>
+
+														<img src="#{commande.article.image}" class="card-img-top"
+															style="height: 50px; margin-left: 10px;" />
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form> <h:form>
+		<div class="container py-5 h-100">
+			<div
+				class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col">
+					<div class="card">
+						<div class="card-body p-4">
+
+							<div class="row">
+
+								<div class="col-lg-7">
+
+									<div
+										class="d-flex justify-content-between align-items-center mb-4">
+										<div>
+											<p class="mb-1">Liste Adresses</p>
+										</div>
+									</div>
+
+									<c:forEach items="#{adresseBrowserBean.adresses}" var="adresse">
+
+										<div class="card mb-3">
+											<div class="card-body">
+												<div class="d-flex justify-content-between">
+													<div class="d-flex flex-row align-items-center">
+														<div class="ms-3">
+															<h5>#{adresse.adresse}</h5>
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</c:forEach>
+								</div>
+								<div class="col-lg-5 text-center">
+									<p class="mb-1">Ajouter Adresse</p>
+									<h:inputText id="adresse" value="#{adresseBrowserBean.adresse}"
+										class="form-control form-control-mb" />
+									<br />
+									<h:commandButton
+										action="#{adresseBrowserBean.ajouterAdresse()}"
+										value="Ajouter"
+										class="btn btn-primary btn-lg btn-block img-responsive" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</h:form> </section>
+</h:body>
+</html>
